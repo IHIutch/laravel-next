@@ -2,16 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserDeleteRequest;
-use App\Http\Requests\UserStoreRequest;
-use App\Http\Requests\UserUpdateRequest;
-use App\Http\Resources\UserCollection;
-use App\Http\Resources\UserResource;
-use App\Models\User;
+use App\Models\Parcel;
 use App\Spiders\LaravelDocsSpider;
 use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use RoachPHP\Roach;
@@ -22,10 +16,12 @@ class ParcelController extends Controller
     /**
      * Display the parcel information.
      */
-    public function index()
+    public function viewAll()
     {
-        return Inertia::render('test', [
-            'test' => ['search', 'role', 'trashed'],
+        $parcels = Parcel::select('sbl', 'swis', 'address')->limit(10)->get();
+
+        return Inertia::render('dashboard', [
+            'parcels' => $parcels,
         ]);
     }
 

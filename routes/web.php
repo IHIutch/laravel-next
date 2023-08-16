@@ -26,17 +26,15 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/test', function () {
-    return Inertia::render('test', []);
-});
+// Route::get('/test', function () {
+//     return Inertia::render('test', []);
+// });
 
 
-Route::get('test/{id}', [ParcelController::class, 'index'])->name('parcel.edit');
-Route::patch('test/{id}', [ParcelController::class, 'update'])->name('parcel.update');
+// Route::get('test/{id}', [ParcelController::class, 'index'])->name('parcel.edit');
+// Route::patch('test/{id}', [ParcelController::class, 'update'])->name('parcel.update');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [ParcelController::class, 'viewAll'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
